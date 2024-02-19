@@ -1,11 +1,16 @@
 package org.example;
 
+import org.jobrunr.jobs.JobDetails;
 import org.jobrunr.jobs.context.JobContext;
+import org.jobrunr.jobs.details.JobDetailsAsmGenerator;
+import org.jobrunr.jobs.details.JobDetailsGenerator;
+import org.jobrunr.jobs.details.SerializedLambdaConverter;
+import org.jobrunr.jobs.lambdas.JobLambda;
 import org.jobrunr.scheduling.BackgroundJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
+import java.lang.invoke.SerializedLambda;
 
 public class GeoService {
     Logger LOG = LoggerFactory.getLogger(GeoService.class);
@@ -19,7 +24,15 @@ public class GeoService {
         UserId userId = new UserId();
         userId.setValue("test");
         long geoNameId = 1234;
-        BackgroundJob.enqueue(UUID.randomUUID(), () -> executeGeoTreeJob(JobContext.Null, geoNameId, userId));
+
+        JobLambda jobLambda = () -> executeGeoTreeJob(JobContext.Null, geoNameId, userId);
+
+        SerializedLambda serializedLambda = SerializedLambdaConverter.toSerializedLambda(jobLambda);
+        System.out.println("=======");
+        System.out.println("serializedLambda " + serializedLambda.getImplMethodKind());
+        System.out.println("=======");
+
+        BackgroundJob.enqueue(() -> executeGeoTreeJob(JobContext.Null, geoNameId, userId));
 
     }
 }

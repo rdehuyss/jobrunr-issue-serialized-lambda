@@ -10,7 +10,7 @@
     <repositories>
         <repository>
             <id>JobRunrPro</id>
-            <url>https://repo.jobrunr.io/#/private-releases/</url>
+            <url>https://repo.jobrunr.io/private-releases/</url>
         </repository>
     </repositories>
     <properties>
@@ -32,8 +32,8 @@
         </dependency>
         <dependency>
             <groupId>org.jobrunr</groupId>
-            <artifactId>jobrunr-pro-spring-boot-3-starter</artifactId>
-            <version>6.3.5</version>
+            <artifactId>jobrunr-spring-boot-3-starter</artifactId>
+            <version>6.3.4</version>
             <!-- working version <version>6.2.8</version> -->
         </dependency>
         <dependency>
